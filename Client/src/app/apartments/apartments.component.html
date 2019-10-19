@@ -1,0 +1,76 @@
+<head>
+  <style>
+    body {
+      background-image: url("../../assets/images/Leb_Realestate.jpg");
+      background-color: #cccccc;
+      background-position: center; /* Center the image */
+      background-repeat: no-repeat; /* Do not repeat the image */
+      background-size: cover; /* Resize the background image to cover the entire container */
+
+    }
+  </style>
+
+</head>
+
+
+<div class="sidenav">
+
+  <div style="margin-left:10px">
+    <p>
+      <label>
+        <span class="glyphicon glyphicon-pushpin"></span> Filter Address:
+      </label>
+    </p>
+    <input type="text" style="margin-bottom:10px;width: 6em" class="form-control" name="addressFilterBox" [(ngModel)]="filterAddress" #addressFilterBox="ngModel">
+
+
+    <p>
+      <label>
+        <span class="glyphicon glyphicon-usd"></span> Price Min:
+      </label>
+    </p>
+    <input type="number" style="margin-bottom:10px;width: 6em" class="form-control" name="priceMinFilterBox" [(ngModel)]="filterPriceMin" #priceMinFilterBox="ngModel">
+
+    <p>
+      <label>
+        <span class="glyphicon glyphicon-usd"></span> Price Max:
+      </label>
+    </p>
+    <input type="number" style="margin-bottom:10px;width: 6em" class="form-control" name="priceMaxFilterBox" [(ngModel)]="filterPriceMax" #priceMaxFilterBox="ngModel">
+
+
+    <p>
+      <label>
+        <span class="glyphicon glyphicon-home"></span> Number of Rooms:
+      </label>
+    </p>
+    <select type="number" class="form-control" style="width: 6em;margin-bottom:15px" [(ngModel)]="filterNbrRooms">
+      <option *ngFor="let number of [1,2,3,4,5,6,7,8]" [ngValue]="number">{{number}}</option>
+    </select>
+
+
+    <button class="btn btn-danger" style="width: 8em;margin-bottom:10px" (click)="applyFilter($event)">Apply Filters</button>
+
+
+    <button class="btn btn-danger" style="width: 8em;margin-bottom:10px" (click)="resetFilters($event)">Reset Filters</button>
+
+  </div>
+</div>
+
+<body>
+<div class="main">
+
+
+  <a class="btn btn-success" style="margin-bottom:10px" [routerLink]="['/apartments', '0']">Add New Apartment</a>
+
+  <apartments-grid [apartments]="filteredApartments"></apartments-grid>
+
+
+  <pagination [totalItems] = "totalRecords"
+              [pageSize] = "pageSize"
+              (pageChanged) = "pageChanged($event)"></pagination>
+
+
+</div>
+  </body>
+

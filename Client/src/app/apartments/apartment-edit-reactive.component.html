@@ -1,0 +1,63 @@
+<div>
+
+  <header>
+      <h3>
+          <span class="glyphicon glyphicon-home"></span>
+          {{ apartment.title }}
+      </h3>
+  </header>
+  <br />
+
+  <form [formGroup]="apartmentForm" (ngSubmit)="submit(apartmentForm)" class="editForm" novalidate>
+
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" class="form-control" formControlName="title" />
+      <div class="alert alert-danger" [hidden]="apartmentForm.controls.title.untouched || apartmentForm.controls.title.valid">First Name is required</div>
+    </div>
+
+    <div class="form-group">
+      <label>Address</label>
+      <input type="text" class="form-control" formControlName="address" />
+      <div class="alert alert-danger" [hidden]="apartmentForm.controls.address.untouched || apartmentForm.controls.address.valid">Address is required</div>
+    </div>
+
+    <div class="form-group">
+      <label>Number of Rooms</label>
+      <select type="number" class="form-control" formControlName="nbrRooms">
+        <option *ngFor="let number of [1,2,3,4,5,6,7,8]" [ngValue]="number">{{number}}</option>
+      </select>
+      <div class="alert alert-danger" [hidden]="apartmentForm.controls.nbrRooms.untouched || apartmentForm.controls.nbrRooms.valid">Number of rooms is required</div>
+    </div>
+
+    <div class="form-group" *ngIf="priceEnabled">
+      <label>Price</label>
+      <input type="number" class="form-control" *ngIf="priceEnabled" formControlName="price">
+      <div class="alert alert-danger" [hidden]="apartmentForm.controls.price.untouched || apartmentForm.controls.price.valid">Price is required</div>
+    </div>
+
+
+    <br />
+    <div *ngIf="apartment">
+
+      <div class="alert alert-warning" *ngIf="apartment.id && deleteMessageEnabled">
+        Delete Apartment?&nbsp;&nbsp;<button class="btn btn-danger" (click)="delete($event)">Yes</button>&nbsp;&nbsp;
+        <button class="btn btn-default" (click)="deleteMessageEnabled = false">No</button>
+      </div>
+
+      <button class="btn btn-danger" *ngIf="apartment.id && !deleteMessageEnabled" (click)="deleteMessageEnabled = true">Delete</button>&nbsp;&nbsp;
+
+      <div class="pull-right" *ngIf="!deleteMessageEnabled">
+        <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success" [disabled]="!apartmentForm.valid">{{ operationText }}</button>
+      </div>
+
+    </div>
+
+    <br />
+    <br />
+    <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
+  </form>
+
+
+</div>

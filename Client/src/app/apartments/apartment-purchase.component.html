@@ -1,0 +1,37 @@
+<div>
+
+  <header>
+    <h3>
+      <span class="glyphicon glyphicon-home"></span>
+      Purchasing... Which buyer are you?
+    </h3>
+  </header>
+  <br />
+
+
+  <div class="row grid-container">
+    <div>
+
+      <label>Buyers:</label>
+      <br />
+      <select type="string" [(ngModel)]="buyerID" class="form-control" style="width: 6em">
+        <option *ngFor="let buyer of buyers; trackBy:trackby.buyer" [ngValue]="buyer.id">{{buyer.fullname}} - {{buyer.credit}}$ </option>
+      </select>
+    </div>
+
+  </div>
+
+
+    <div class="pull-right">
+      <button class="btn btn-default" (click)="cancel($event)">Cancel</button>&nbsp;&nbsp;
+      <button class="btn btn-success" (click)="purchase($event)">Purchase</button>
+    </div>
+
+
+
+    <br />
+    <br />
+    <div class="alert alert-danger" *ngIf="errorMessage != null">{{ errorMessage }}</div>
+
+  </div>
+
